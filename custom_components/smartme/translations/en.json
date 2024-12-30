@@ -12,7 +12,6 @@
         },
         "error": {
             "invalid_auth": "Invalid authentication",
-            "cannot_connect": "Failed to connect to Smart-me API",
             "unknown": "Unexpected error"
         },
         "abort": {
