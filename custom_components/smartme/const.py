@@ -20,25 +20,25 @@ SENSOR_TYPES = {
     "ActivePower": {
         "key": "ActivePower",
         "name": "Active Power",
-        "device_class": DEVICE_CLASS_POWER,
+        "device_class": DEVICE_CLASS_ENERGY,
         "unit": POWER_KILO_WATT,
     },
     "ActivePowerL1": {
         "key": "ActivePowerL1",
         "name": "Active Power L1",
-        "device_class": DEVICE_CLASS_POWER,
+        "device_class": DEVICE_CLASS_ENERGY,
         "unit": POWER_KILO_WATT,
     },
     "ActivePowerL2": {
         "key": "ActivePowerL2",
         "name": "Active Power L2",
-        "device_class": DEVICE_CLASS_POWER,
+        "device_class": DEVICE_CLASS_ENERGY,
         "unit": POWER_KILO_WATT,
     },
     "ActivePowerL3": {
         "key": "ActivePowerL3",
         "name": "Active Power L3",
-        "device_class": DEVICE_CLASS_POWER,
+        "device_class": DEVICE_CLASS_ENERGY,
         "unit": POWER_KILO_WATT,
     },
     
