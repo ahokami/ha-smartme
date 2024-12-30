@@ -17,16 +17,16 @@ This integration allows you to monitor your Smart-me energy meters in Home Assis
 
 ## Installation
 
-### HACS Installation (Recommended)
+### HACS Installation (Custom Repository)
 
 1. Open HACS in your Home Assistant instance
-2. Click on "Integrations"
-3. Click the three dots in the top right corner
-4. Select "Custom repositories"
-5. Add this repository URL and select "Integration" as the category
+2. Click on the three dots in the top right corner
+3. Select "Custom repositories"
+4. Add this repository URL: `https://github.com/ahokami/ha-smartme`
+5. Select "Integration" as the category
 6. Click "Add"
-7. Search for "Smart-me" in HACS
-8. Click "Install"
+7. Click on "Smart-me" in the integration list
+8. Click "Download"
 9. Restart Home Assistant
 
 ### Manual Installation
@@ -40,18 +40,33 @@ This integration allows you to monitor your Smart-me energy meters in Home Assis
 2. Click "Add Integration"
 3. Search for "Smart-me"
 4. Enter your Smart-me credentials (username and password)
-5. Select the meters you want to monitor
-6. Click "Submit"
+5. Click "Submit"
 
 ## Available Sensors
 
 Each meter will create a device with the following sensors:
 
-- Active Power (total and per phase)
-- Counter Reading (total, T1, T2, import, export)
-- Voltage (total and per phase)
-- Current (per phase)
-- Power Factor (total and per phase)
+### Power Measurements
+- Active Power (total)
+- Active Power L1, L2, L3 (per phase)
+
+### Energy Readings
+- Counter Reading (total)
+- Counter Reading T1, T2 (tariff periods)
+- Counter Reading Import/Export
+
+### Voltage Measurements
+- Voltage (total)
+- Voltage L1, L2, L3 (per phase)
+
+### Current Measurements
+- Current L1, L2, L3 (per phase)
+
+### Power Factor
+- Power Factor (total)
+- Power Factor L1, L2, L3 (per phase)
+
+### Other
 - Digital Output Status
 - Last Update Timestamp
 
@@ -63,6 +78,10 @@ If you encounter any issues:
 2. Verify your internet connection
 3. Ensure your Smart-me devices are online
 4. Check the Home Assistant logs for any error messages
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ---
 
@@ -79,16 +98,16 @@ If you encounter any issues:
 
 ## Installation
 
-### Installation via HACS (Recommandée)
+### Installation via HACS (Dépôt Personnalisé)
 
 1. Ouvrez HACS dans votre instance Home Assistant
-2. Cliquez sur "Intégrations"
-3. Cliquez sur les trois points en haut à droite
-4. Sélectionnez "Dépôts personnalisés"
-5. Ajoutez l'URL de ce dépôt et sélectionnez "Integration" comme catégorie
+2. Cliquez sur les trois points en haut à droite
+3. Sélectionnez "Dépôts personnalisés"
+4. Ajoutez l'URL du dépôt : `https://github.com/ahokami/ha-smartme`
+5. Sélectionnez "Integration" comme catégorie
 6. Cliquez sur "Ajouter"
-7. Recherchez "Smart-me" dans HACS
-8. Cliquez sur "Installer"
+7. Cliquez sur "Smart-me" dans la liste des intégrations
+8. Cliquez sur "Télécharger"
 9. Redémarrez Home Assistant
 
 ### Installation Manuelle
@@ -102,18 +121,33 @@ If you encounter any issues:
 2. Cliquez sur "Ajouter une intégration"
 3. Recherchez "Smart-me"
 4. Entrez vos identifiants Smart-me (nom d'utilisateur et mot de passe)
-5. Sélectionnez les compteurs que vous souhaitez surveiller
-6. Cliquez sur "Soumettre"
+5. Cliquez sur "Soumettre"
 
 ## Capteurs Disponibles
 
 Chaque compteur créera un appareil avec les capteurs suivants :
 
-- Puissance Active (totale et par phase)
-- Relevé de Compteur (total, T1, T2, import, export)
-- Tension (totale et par phase)
-- Courant (par phase)
-- Facteur de Puissance (total et par phase)
+### Mesures de Puissance
+- Puissance Active (totale)
+- Puissance Active L1, L2, L3 (par phase)
+
+### Relevés d'Énergie
+- Relevé de Compteur (total)
+- Relevé de Compteur T1, T2 (périodes tarifaires)
+- Relevé de Compteur Import/Export
+
+### Mesures de Tension
+- Tension (totale)
+- Tension L1, L2, L3 (par phase)
+
+### Mesures de Courant
+- Courant L1, L2, L3 (par phase)
+
+### Facteur de Puissance
+- Facteur de Puissance (total)
+- Facteur de Puissance L1, L2, L3 (par phase)
+
+### Autres
 - État de la Sortie Digitale
 - Horodatage de la Dernière Mise à Jour
 
@@ -125,3 +159,7 @@ Si vous rencontrez des problèmes :
 2. Vérifiez votre connexion internet
 3. Assurez-vous que vos appareils Smart-me sont en ligne
 4. Consultez les logs de Home Assistant pour les messages d'erreur
+
+## Contribution
+
+Les contributions sont les bienvenues ! N'hésitez pas à soumettre une Pull Request.
