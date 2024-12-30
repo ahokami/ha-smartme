@@ -4,7 +4,7 @@
 
 This integration allows you to monitor your Smart-me energy meters in Home Assistant.
 
-[Version française](#intégration-smart-me-pour-home-assistant)
+[Version française] (#intégration-smart-me-pour-home-assistant)
 
 ## Features
 
