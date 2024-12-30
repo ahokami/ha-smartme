@@ -8,18 +8,11 @@
                 },
                 "description": "Please enter your Smart-me credentials.",
                 "title": "Smart-me Setup"
-            },
-            "devices": {
-                "data": {
-                    "device_id": "Select devices to monitor"
-                },
-                "description": "Select which devices you want to monitor. Device names will be shown in the description.",
-                "title": "Select Smart-me Devices"
             }
         },
         "error": {
             "invalid_auth": "Invalid authentication",
-            "no_devices_selected": "Please select at least one device",
+            "cannot_connect": "Failed to connect to Smart-me API",
             "unknown": "Unexpected error"
         },
         "abort": {

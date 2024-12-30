@@ -10,21 +10,16 @@ from homeassistant import config_entries
 from homeassistant.const import CONF_PASSWORD, CONF_USERNAME
 from homeassistant.data_entry_flow import FlowResult
 
-from .api import InvalidAuth, SmartMeApiClient
+from .api import SmartMeApiClient
+from .exceptions import InvalidAuth, ApiError
 from .const import DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 
-class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
+class SmartMeConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Handle a config flow for Smart-me."""
 
     VERSION = 1
-
-    def __init__(self) -> None:
-        """Initialize flow."""
-        self.username: str | None = None
-        self.password: str | None = None
-        self.devices: list[dict[str, Any]] = []
 
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
@@ -41,76 +36,48 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 ),
             )
 
-        self.username = user_input[CONF_USERNAME]
-        self.password = user_input[CONF_PASSWORD]
+        errors = {}
 
         try:
-            client = SmartMeApiClient(self.username, self.password)
-            self.devices = await client.get_devices()
+            client = SmartMeApiClient(
+                user_input[CONF_USERNAME],
+                user_input[CONF_PASSWORD],
+            )
+            devices = await client.get_devices()
         except InvalidAuth:
-            return self.async_show_form(
-                step_id="user",
-                data_schema=vol.Schema(
-                    {
-                        vol.Required(CONF_USERNAME): str,
-                        vol.Required(CONF_PASSWORD): str,
-                    }
-                ),
-                errors={"base": "invalid_auth"},
-            )
-
-        return await self.async_step_devices()
-
-    async def async_step_devices(
-        self, user_input: dict[str, Any] | None = None
-    ) -> FlowResult:
-        """Handle device selection step."""
-        if user_input is None:
-            device_schema = vol.Schema(
-                {
-                    vol.Required(device["Id"]): bool
-                    for device in self.devices
-                }
-            )
-
-            return self.async_show_form(
-                step_id="devices",
-                data_schema=device_schema,
-                description_placeholders={
-                    f"device_{device['Id']}": f"{device['Name']} ({device['Serial']})"
-                    for device in self.devices
+            errors["base"] = "invalid_auth"
+        except ApiError:
+            errors["base"] = "cannot_connect"
+        except Exception:  # pylint: disable=broad-except
+            _LOGGER.exception("Unexpected exception")
+            errors["base"] = "unknown"
+        else:
+            await self.async_set_unique_id(user_input[CONF_USERNAME])
+            self._abort_if_unique_id_configured()
+            
+            return self.async_create_entry(
+                title=f"Smart-me ({len(devices)} devices)",
+                data={
+                    CONF_USERNAME: user_input[CONF_USERNAME],
+                    CONF_PASSWORD: user_input[CONF_PASSWORD],
+                    "devices": [
+                        {
+                            "id": device.id,
+                            "name": device.name,
+                            "serial": device.serial,
+                        }
+                        for device in devices
+                    ],
                 },
             )
 
-        selected_devices = [
-            device for device in self.devices
-            if user_input.get(device["Id"], False)
-        ]
-
-        if not selected_devices:
-            return self.async_show_form(
-                step_id="devices",
-                data_schema=vol.Schema(
-                    {
-                        vol.Required(device["Id"]): bool
-                        for device in self.devices
-                    }
-                ),
-                errors={"base": "no_devices_selected"},
-            )
-
-        return self.async_create_entry(
-            title=f"Smart-me ({len(selected_devices)} devices)",
-            data={
-                CONF_USERNAME: self.username,
-                CONF_PASSWORD: self.password,
-                "devices": [
-                    {
-                        "id": device["Id"],
-                        "name": device["Name"],
-                        "serial": device["Serial"],
-                    }
-                    for device in selected_devices
-                ],
-            },
+        return self.async_show_form(
+            step_id="user",
+            data_schema=vol.Schema(
+                {
+                    vol.Required(CONF_USERNAME): str,
+                    vol.Required(CONF_PASSWORD): str,
+                }
+            ),
+            errors=errors,
         )
