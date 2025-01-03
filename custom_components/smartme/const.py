@@ -150,11 +150,4 @@ SENSOR_TYPES = {
         "key": "DigitalOutput2",
         "name": "Digital Output 2",
     },
-    
-    # Timestamp
-    "ValueDate": {
-        "key": "ValueDate",
-        "name": "Last Update",
-        "device_class": SensorDeviceClass.TIMESTAMP,
-    },
 }
