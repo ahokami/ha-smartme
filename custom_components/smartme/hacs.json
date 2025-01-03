@@ -1,0 +1,9 @@
+{
+  "name": "Smart-me",
+  "render_readme": true,
+  "domain": "smartme",
+  "documentation": "https://github.com/ahokami/ha-smartme",
+  "issue_tracker": "https://github.com/ahokami/ha-smartme/issues",
+  "homeassistant": "2024.1.0",
+  "hacs": "1.0.0"
+}
